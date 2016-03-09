@@ -119,11 +119,69 @@ Virtual Address 7268:
     --> pte index:0x13  pte contents:(valid 1, pfn 0x65)
       --> Translates to Physical Address 0xca8 --> Value: 16
 ```
+* 计算过程：
+  * 页目录大小为32Bytes，所以首先把虚拟地址中的最高5位作为PDE的索引，加上PDBR的PD基址，在PDE表中找到相应的表项，判断是否合法。
+  * 若PDE合法，则使用PDE表中的最低7位作为PTE的页帧号（左移5位），加上虚拟地址中的中间5位索引，然后在PTE表中找到相应的表项，判断是否合法。
+  * 若PTE合法，则使用PTE表中的最低7位作为物理地址的页帧号（左移5位），加上虚拟地址中的最低5位偏移，读出相应的数值。
+* 根据以上计算过程编写了[程序](https://github.com/junjiek/os_course_spoc_exercises/blob/master/03-2-spoc/map.py)
+* 计算结果：
 
+```
+Virtual Address 0x6c74:
+    --> pde index: 0x1b pde contents:(valid 0x1, pfn 0x20)
+        --> pte index: 0x3 pte contents:(valid 0x1, pfn 0x61)
+            --> Translated to Physical Address 0xc34 --> Value: 0x6
+
+Virtual Address 0x6b22:
+    --> pde index: 0x1a pde contents:(valid 0x1, pfn 0x52)
+        --> pte index: 0x19 pte contents:(valid 0x1, pfn 0x47)
+            --> Translated to Physical Address 0x8e2 --> Value: 0x1a
+
+Virtual Address 0x3df:
+    --> pde index: 0x0 pde contents:(valid 0x1, pfn 0x5a)
+        --> pte index: 0x1e pte contents:(valid 0x1, pfn 0x5)
+            --> Translated to Physical Address 0xbf --> Value: 0xf
+
+Virtual Address 0x69dc:
+    --> pde index: 0x1a pde contents:(valid 0x1, pfn 0x52)
+        --> pte index: 0xe pte contents:(valid 0x0, pfn 0x7f)
+            --> Fault (page table entry not valid)
+
+Virtual Address 0x317a:
+    --> pde index: 0xc pde contents:(valid 0x1, pfn 0x18)
+        --> pte index: 0xb pte contents:(valid 0x1, pfn 0x35)
+            --> Translated to Physical Address 0x6ba --> Value: 0x1e
+
+Virtual Address 0x4546:
+    --> pde index: 0x11 pde contents:(valid 0x1, pfn 0x21)
+        --> pte index: 0xa pte contents:(valid 0x0, pfn 0x7f)
+            --> Fault (page table entry not valid)
+
+Virtual Address 0x2c03:
+    --> pde index: 0xb pde contents:(valid 0x1, pfn 0x44)
+        --> pte index: 0x0 pte contents:(valid 0x1, pfn 0x57)
+            --> Translated to Physical Address 0xae3 --> Value: 0x16
+
+Virtual Address 0x7fd7:
+    --> pde index: 0x1f pde contents:(valid 0x1, pfn 0x12)
+        --> pte index: 0x1e pte contents:(valid 0x0, pfn 0x7f)
+            --> Fault (page table entry not valid)
+
+Virtual Address 0x390e:
+    --> pde index: 0xe pde contents:(valid 0x0, pfn 0x7f)
+        --> Fault (page directory entry not valid)
+
+Virtual Address 0x748b:
+    --> pde index: 0x1d pde contents:(valid 0x1, pfn 0x0)
+        --> pte index: 0x4 pte contents:(valid 0x0, pfn 0x7f)
+            --> Fault (page table entry not valid)
+
+```
 
 
 （3）请基于你对原理课二级页表的理解，并参考Lab2建页表的过程，设计一个应用程序（可基于python, ruby, C, C++，LISP等）可模拟实现(2)题中描述的抽象OS，可正确完成二级页表转换。
 
+* [程序](https://github.com/junjiek/os_course_spoc_exercises/blob/master/03-2-spoc/map.py)
 
 （4）假设你有一台支持[反置页表](http://en.wikipedia.org/wiki/Page_table#Inverted_page_table)的机器，请问你如何设计操作系统支持这种类型计算机？请给出设计方案。
 
