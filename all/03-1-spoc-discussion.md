@@ -31,7 +31,7 @@ NOTICE
 
 ## 小组思考题
 
-请参考xv6（umalloc.c），ucore lab2代码，选择四种（0:最优匹配，1:最差匹配，2:最先匹配，3:buddy systemm）分配算法中的一种或多种，在Linux应用程序/库层面，用C来实现malloc/free，给出你的设计思路，并给出可以在Linux上运行的malloc/free实现和测试用例。 (spoc)
+请参考xv6（umalloc.c），ucore lab2代码，选择四种（0:最优匹配，1:最差匹配，2:最先匹配，3:buddy systemm）分配算法中的一种或多种，在Linux应用程序/库层面，用C、C++或python来实现malloc/free，给出你的设计思路，并给出可以在Linux上运行的malloc/free实现和测试用例。 (spoc)
 
 - [基于malloc与free函数的实现代码及分析](http://www.jb51.net/article/36391.htm)
 
@@ -158,3 +158,10 @@ struct list_entry是如何把数据元素组织成链表的？
 - [x]  
 
 >
+
+## 其它
+- 静态分配内存与动态分配内存的区别是啥？
+- 在隐式链表结构中，如何实现向前的合并操作？
+- 如何判断一个函数是库函数还是一个系统调用？
+- 为何要在OS内部和用户态中实现两层动态内存分配？
+- 为何在OS内部没有采用GC分配方式？
