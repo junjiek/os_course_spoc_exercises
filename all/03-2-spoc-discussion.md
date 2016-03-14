@@ -103,7 +103,7 @@ PT6..0:页表的物理基址>>5
    Virtual Address 748b
 ```
 
-比如答案可以如下表示：
+比如答案可以如下表示： (注意：下面的结果是错的，你需要关注的是如何表示)
 ```
 Virtual Address 7570:
   --> pde index:0x1d  pde contents:(valid 1, pfn 0x33)
@@ -179,7 +179,7 @@ Virtual Address 0x748b:
 ```
 
 
-（3）请基于你对原理课二级页表的理解，并参考Lab2建页表的过程，设计一个应用程序（可基于python, ruby, C, C++，LISP等）可模拟实现(2)题中描述的抽象OS，可正确完成二级页表转换。
+（3）请基于你对原理课二级页表的理解，并参考Lab2建页表的过程，设计一个应用程序（可基于python、ruby、C、C++、LISP、JavaScript等）可模拟实现(2)题中描述的抽象OS，可正确完成二级页表转换。
 
 * [程序](https://github.com/junjiek/os_course_spoc_exercises/blob/master/03-2-spoc/map.py)
 
@@ -193,3 +193,9 @@ Virtual Address 0x748b:
 阅读64bit IBM Powerpc CPU架构是如何实现[反置页表](http://en.wikipedia.org/wiki/Page_table#Inverted_page_table)，给出分析报告。
 
 --- 
+
+
+## interactive　understand VM
+
+- [Virtual Memory with 256 Bytes of RAM](http://blog.robertelder.org/virtual-memory-with-256-bytes-of-ram/)
+
