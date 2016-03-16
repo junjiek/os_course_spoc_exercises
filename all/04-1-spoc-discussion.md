@@ -172,6 +172,30 @@ Virtual Address 1e6f(0 001_11 10_011 0_1111):
       --> To Disk Sector Address 0x2cf(0001011001111) --> Value: 1c
 ```
 
+> [程序](https://github.com/junjiek/os_course_spoc_exercises/blob/master/04-2-spoc/map.py)。在第三周作业的基础上进行了修改，增加了第二级页表中VALID位的判断。当第二级页表不合法时，根据页帧号的内容判断该页在外存中还是不存在。
+> 结果如下：
+```
+Virtual Address 0x6653:
+    --> pde index: 0x19 pde contents: (valid 0x0, pfn 0x7f)
+        --> Fault (page directory entry not valid)
+Virtual Address 0x1c13:
+    --> pde index: 0x7 pde contents: (valid 0x1, pfn 0x3d)
+        --> pte index: 0x0 pte contents: (valid 0x1, pfn 0x76)
+            --> To Physical Address 0xed3 --> Value: 0x12
+Virtual Address 0x6890:
+    --> pde index: 0x1a pde contents: (valid 0x0, pfn 0x7f)
+        --> Fault (page directory entry not valid)
+Virtual Address 0xaf6:
+    --> pde index: 0x2 pde contents: (valid 0x1, pfn 0x21)
+        --> pte index: 0x17 pte contents: (valid 0x0, pfn 0x7f)
+             -> Fault (page table entry not valid)
+Virtual Address 0x1e6f:
+    --> pde index: 0x7 pde contents: (valid 0x1, pfn 0x3d)
+        --> pte index: 0x13 pte contents: (valid 0x0, pfn 0x16)
+            --> To Disk Sector Address 0x2cf --> Value 0x1c
+```
+
+
 ## 扩展思考题
 ---
 (1)请分析原理课的缺页异常的处理流程与lab3中的缺页异常的处理流程（分析粒度到函数级别）的异同之处。
